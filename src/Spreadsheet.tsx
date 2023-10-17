@@ -121,11 +121,16 @@ export type Props<CellType extends Types.CellBase> = {
   ) => void;
 };
 
+export type Ref<CellType extends Types.CellBase> = {
+  getEntireData(): Matrix.Matrix<CellType>;
+};
+
 /**
  * The Spreadsheet component
  */
 const Spreadsheet = <CellType extends Types.CellBase>(
-  props: Props<CellType>
+  props: Props<CellType>,
+  ref: React.Ref<Ref<CellType>>
 ): React.ReactElement => {
   const {
     className,
@@ -553,9 +558,21 @@ const Spreadsheet = <CellType extends Types.CellBase>(
     ]
   );
 
+  React.useImperativeHandle(
+    ref,
+    (): Ref<CellType> => {
+      return {
+        getEntireData() {
+          return state.model.data;
+        },
+      };
+    },
+    [state.model.data]
+  );
+
   return (
     <context.Provider value={reducerElements}>{rootNode}</context.Provider>
   );
 };
 
-export default Spreadsheet;
+export default React.forwardRef(Spreadsheet);

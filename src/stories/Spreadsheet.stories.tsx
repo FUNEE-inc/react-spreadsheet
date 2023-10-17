@@ -4,6 +4,7 @@ import {
   createEmptyMatrix,
   Spreadsheet,
   Props,
+  Ref,
   CellBase,
   EntireWorksheetSelection,
   Selection,
@@ -313,5 +314,23 @@ export const ControlledSelection: StoryFn<Props<StringCell>> = (props) => {
       </div>
       <Spreadsheet {...props} selected={selected} onSelect={handleSelect} />;
     </div>
+  );
+};
+
+export const GetEntireData: StoryFn<Props<StringCell>> = (props) => {
+  const ref = React.useRef<Ref<StringCell>>(null);
+
+  const getEntireData = React.useCallback(() => {
+    const data = ref.current?.getEntireData();
+    console.log("data", data);
+  }, []);
+
+  return (
+    <>
+      <div>
+        <button onClick={getEntireData}>Get entire data</button>
+      </div>
+      <Spreadsheet ref={ref} {...props} />
+    </>
   );
 };

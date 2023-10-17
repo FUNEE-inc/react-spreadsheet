@@ -4,7 +4,7 @@ import DataViewer from "./DataViewer";
 
 export default Spreadsheet;
 export { Spreadsheet, DataEditor, DataViewer };
-export type { Props } from "./Spreadsheet";
+export type { Props, Ref } from "./Spreadsheet";
 export { createEmpty as createEmptyMatrix } from "./matrix";
 export type { Matrix } from "./matrix";
 export {
