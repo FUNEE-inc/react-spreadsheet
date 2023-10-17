@@ -1,5 +1,5 @@
 {
-  "name": "react-spreadsheet",
+  "name": "@funee-inc/react-spreadsheet",
   "version": "0.10.0",
   "description": "Simple, customizable yet performant spreadsheet for React",
   "author": "Iddan Aaronsohn <mail@aniddan.com> (https://aniddan.com)",
@@ -112,11 +112,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/iddan/react-spreadsheet.git"
+    "url": "git+https://github.com/FUNEE-inc/react-spreadsheet.git"
   },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/iddan/react-spreadsheet/issues"
   },
-  "homepage": "https://github.com/iddan/react-spreadsheet#readme"
+  "homepage": "https://github.com/iddan/react-spreadsheet#readme",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/funee-inc"
+  }
 }
