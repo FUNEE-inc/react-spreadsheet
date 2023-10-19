@@ -334,3 +334,24 @@ export const GetEntireData: StoryFn<Props<StringCell>> = (props) => {
     </>
   );
 };
+
+export const WidthInEditMode: StoryObj = {
+  args: {
+    ...meta.args,
+    data: Matrix.set(
+      { row: 3, column: 2 },
+      {
+        value: "500px",
+        minWidthInEditMode: "500px",
+      },
+      Matrix.set(
+        { row: 2, column: 2 },
+        {
+          value: "auto",
+          widthAutoInEditMode: true,
+        },
+        createEmptyMatrix<StringCell>(INITIAL_ROWS, INITIAL_COLUMNS)
+      )
+    ),
+  },
+};

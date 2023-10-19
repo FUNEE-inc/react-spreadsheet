@@ -112,7 +112,15 @@ const ActiveCell: React.FC<Props> = (props) => {
         "Spreadsheet__active-cell",
         `Spreadsheet__active-cell--${mode}`
       )}
-      style={dimensions}
+      style={{
+        ...dimensions,
+        ...(mode === "edit" && active && cell?.widthAutoInEditMode
+          ? { width: "auto", minWidth: dimensions?.width }
+          : undefined),
+        ...(mode === "edit" && active && cell?.minWidthInEditMode != null
+          ? { minWidth: cell.minWidthInEditMode }
+          : undefined),
+      }}
       onClick={mode === "view" && !readOnly ? edit : undefined}
       tabIndex={0}
     >

@@ -1,5 +1,6 @@
 import * as React from "react";
 import FormulaParser from "fast-formula-parser";
+import { Property } from "csstype/index.d";
 import { Point } from "./point";
 import { Selection } from "./selection";
 import { Model } from "./engine";
@@ -19,6 +20,10 @@ export type CellBase<Value = any> = {
   DataEditor?: DataEditorComponent<CellBase<Value>>;
   /** Custom component to render when the cell is viewed, if not defined would default to the component defined for the Spreadsheet */
   DataViewer?: DataViewerComponent<CellBase<Value>>;
+  /** Sets the width to 'auto' in edit mode for dynamic content adjustment */
+  widthAutoInEditMode?: boolean;
+  /** minimum width of the cell in edit mode */
+  minWidthInEditMode?: Property.MinWidth;
 };
 
 /**
