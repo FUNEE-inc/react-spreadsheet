@@ -165,6 +165,17 @@ export const Readonly: StoryObj = {
   },
 };
 
+export const Hidden: StoryObj = {
+  args: {
+    ...meta.args,
+    columnLabels: ["Name", "Age", "Email", "hidden_column", "Address"],
+    hiddenColumns: {
+      hidden_column: true,
+      Address: false,
+    },
+  },
+};
+
 export const WithAsyncCellData: StoryObj = {
   args: {
     ...meta.args,

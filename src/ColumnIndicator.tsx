@@ -9,6 +9,7 @@ const ColumnIndicator: Types.ColumnIndicatorComponent = ({
   column,
   label,
   selected,
+  hidden,
   onSelect,
 }) => {
   const handleClick = React.useCallback(
@@ -17,6 +18,10 @@ const ColumnIndicator: Types.ColumnIndicatorComponent = ({
     },
     [onSelect, column]
   );
+
+  if (hidden) {
+    return <></>;
+  }
   return (
     <th
       className={classNames("Spreadsheet__header", {

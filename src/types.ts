@@ -89,6 +89,8 @@ export type CellComponentProps<Cell extends CellBase = CellBase> = {
   copied: boolean;
   /** Whether the user is dragging */
   dragging: boolean;
+  /** Whether the cell is hidden */
+  hidden: boolean;
   /** The mode of the cell */
   mode: Mode;
   /** The data of the cell */
@@ -190,6 +192,8 @@ export type ColumnIndicatorProps = {
   selected: boolean;
   /** Callback to be called when the column is selected */
   onSelect: (column: number, extend: boolean) => void;
+  /** Whether the column indicator should be hidden */
+  hidden?: boolean;
 };
 
 /** Type of the ColumnIndicator component */

@@ -80,6 +80,11 @@ export type Props<CellType extends Types.CellBase> = {
    * @defaultValue `false`.
    */
   hideColumnIndicators?: boolean;
+  /**
+   * Object containing the hidden columns.
+   * @defaultValue `{}`
+   */
+  hiddenColumns?: Record</* columnLabel */ string, boolean>;
   /** The selected cells in the worksheet. */
   selected?: Selection;
   // Custom Components
@@ -139,6 +144,7 @@ const Spreadsheet = <CellType extends Types.CellBase>(
     rowLabels,
     hideColumnIndicators,
     hideRowIndicators,
+    hiddenColumns = {},
     onKeyDown,
     Table = DefaultTable,
     Row = DefaultRow,
@@ -459,21 +465,27 @@ const Spreadsheet = <CellType extends Types.CellBase>(
         <HeaderRow>
           {!hideRowIndicators && !hideColumnIndicators && <CornerIndicator />}
           {!hideColumnIndicators &&
-            range(size.columns).map((columnNumber) =>
-              columnLabels ? (
+            range(size.columns).map((columnNumber) => {
+              if (!columnLabels) {
+                return (
+                  <ColumnIndicator key={columnNumber} column={columnNumber} />
+                );
+              }
+              const label =
+                columnNumber in columnLabels
+                  ? columnLabels[columnNumber]
+                  : null;
+              const hidden =
+                label && label in hiddenColumns ? hiddenColumns[label] : false;
+              return (
                 <ColumnIndicator
                   key={columnNumber}
                   column={columnNumber}
-                  label={
-                    columnNumber in columnLabels
-                      ? columnLabels[columnNumber]
-                      : null
-                  }
+                  label={label}
+                  hidden={hidden}
                 />
-              ) : (
-                <ColumnIndicator key={columnNumber} column={columnNumber} />
-              )
-            )}
+              );
+            })}
         </HeaderRow>
         {range(size.rows).map((rowNumber) => (
           <Row key={rowNumber} row={rowNumber}>
@@ -487,15 +499,24 @@ const Spreadsheet = <CellType extends Types.CellBase>(
               ) : (
                 <RowIndicator key={rowNumber} row={rowNumber} />
               ))}
-            {range(size.columns).map((columnNumber) => (
-              <Cell
-                key={columnNumber}
-                row={rowNumber}
-                column={columnNumber}
-                // @ts-ignore
-                DataViewer={DataViewer}
-              />
-            ))}
+            {range(size.columns).map((columnNumber) => {
+              const label =
+                columnLabels && columnNumber in columnLabels
+                  ? columnLabels[columnNumber]
+                  : null;
+              const hidden =
+                label && label in hiddenColumns ? hiddenColumns[label] : false;
+              return (
+                <Cell
+                  key={columnNumber}
+                  row={rowNumber}
+                  column={columnNumber}
+                  // @ts-ignore
+                  DataViewer={DataViewer}
+                  hidden={hidden}
+                />
+              );
+            })}
           </Row>
         ))}
       </Table>
@@ -515,6 +536,7 @@ const Spreadsheet = <CellType extends Types.CellBase>(
       RowIndicator,
       Cell,
       DataViewer,
+      hiddenColumns,
     ]
   );
 

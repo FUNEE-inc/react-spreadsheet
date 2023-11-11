@@ -15,6 +15,7 @@ export const Cell: React.FC<Types.CellComponentProps> = ({
   selected,
   active,
   dragging,
+  hidden,
   mode,
   data,
   evaluatedData,
@@ -70,6 +71,10 @@ export const Cell: React.FC<Types.CellComponentProps> = ({
   if (data && data.DataViewer) {
     // @ts-ignore
     DataViewer = data.DataViewer;
+  }
+
+  if (hidden) {
+    return <></>;
   }
 
   return (
